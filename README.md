@@ -110,7 +110,6 @@ Each experiment is backed by real packet captures under [`docs/`](docs/).
 
 | | |
 | --- | --- |
-| Hand analysis of the AIMD sawtooth | ![aimd](docs/task2_aimd/01_aimd_handwritten_analysis.png) |
 | `Statistics → TCP Stream Graphs → Window Scaling` (loopback) | ![window loopback](docs/task2_aimd/02_window_scaling_loopback.png) |
 | Window scaling of a real TCP connection | ![window real](docs/task2_aimd/03_window_scaling_real_tcp.png) |
 
