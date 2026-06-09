@@ -85,6 +85,31 @@ def test_network_info_slash30():
     assert info["hosts_count"] == 2
 
 
+def test_network_info_slash32_single_host():
+    info = t3.network_info_from_cidr("8.8.8.8/32")
+    assert info["network"] == "8.8.8.8"
+    assert info["broadcast"] == "8.8.8.8"
+    assert info["hosts_count"] == 1
+
+
+def test_network_info_slash31_point_to_point():
+    info = t3.network_info_from_cidr("192.168.1.0/31")
+    assert info["network"] == "192.168.1.0"
+    assert info["broadcast"] == "192.168.1.1"
+    assert info["first_host"] == "192.168.1.0"
+    assert info["last_host"] == "192.168.1.1"
+    assert info["hosts_count"] == 2
+
+
+def test_ip_to_int_rejects_invalid_octet():
+    # an octet above 255 must be rejected, not silently wrapped
+    try:
+        t3.ip_to_int("999.1.1.1")
+        assert False, "expected ValueError for an octet > 255"
+    except ValueError:
+        pass
+
+
 # ---------- simple fallback runner (no pytest required) ----------
 
 if __name__ == "__main__":
@@ -101,3 +126,5 @@ if __name__ == "__main__":
         except Exception as e:  # noqa: BLE001 - report unexpected errors
             print(f"ERROR {fn.__name__}: {type(e).__name__}: {e}")
     print(f"\n{passed}/{len(tests)} tests passed")
+    # exit non-zero when something failed, so CI fails too
+    raise SystemExit(0 if passed == len(tests) else 1)
