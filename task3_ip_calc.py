@@ -15,7 +15,10 @@ def ip_to_int(ip):
         raise ValueError("Invalid IP address format")
     ip_int = 0
     for part in parts:
-        ip_int = (ip_int << 8) + int(part)
+        num = int(part)
+        if num < 0 or num > 255:
+            raise ValueError("Invalid IP address part: {}".format(part))
+        ip_int = (ip_int << 8) + num
     return ip_int
 
 
@@ -61,12 +64,28 @@ def network_info_from_cidr(cidr_str):
       - 'hosts_count'
     """
     ip_int, mask_int, prefix_len_int = parse_cidr(cidr_str)
+    if prefix_len_int == 32:
+        return {
+            "network": int_to_ip(ip_int),
+            "broadcast": int_to_ip(ip_int),
+            "first_host": int_to_ip(ip_int),
+            "last_host": int_to_ip(ip_int),
+            "hosts_count": 1
+        }
+    elif prefix_len_int == 31:
+        return {
+            "network": int_to_ip(ip_int & mask_int),
+            "broadcast": int_to_ip((ip_int & mask_int) | ~mask_int & 0xFFFFFFFF),
+            "first_host": int_to_ip(ip_int & mask_int),
+            "last_host": int_to_ip((ip_int & mask_int) | ~mask_int & 0xFFFFFFFF),
+            "hosts_count": 2
+        }
     network_int = ip_int & mask_int
     broadcast_int = (network_int | ~mask_int) & 0xFFFFFFFF
     first_host_int = network_int + 1
     last_host_int = broadcast_int - 1
     hosts_count = last_host_int - first_host_int + 1
-
+    
     return {
         "network": int_to_ip(network_int),
         "broadcast": int_to_ip(broadcast_int),
