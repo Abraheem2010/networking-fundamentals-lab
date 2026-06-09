@@ -3,6 +3,7 @@
 Sends a series of messages to an echo server, measures the RTT of each
 message, and prints the per-message RTT together with the average.
 """
+import argparse
 import socket
 import time
 
@@ -75,4 +76,20 @@ def run_rtt_probe(server_host, server_port, protocol="tcp", count=10, timeout_se
 
 
 if __name__ == "__main__":
-    run_rtt_probe("127.0.0.1", 5000, protocol="tcp", count=10, timeout_sec=2.0)
+    parser = argparse.ArgumentParser(
+        description="Measure round-trip time (RTT) to an echo server over TCP or UDP."
+    )
+    parser.add_argument("--host", default="127.0.0.1",
+                        help="server host (default: 127.0.0.1)")
+    parser.add_argument("--port", type=int, default=5000,
+                        help="server port (default: 5000)")
+    parser.add_argument("--protocol", choices=["tcp", "udp"], default="tcp",
+                        help="transport protocol (default: tcp)")
+    parser.add_argument("--count", type=int, default=10,
+                        help="number of messages to send (default: 10)")
+    parser.add_argument("--timeout", type=float, default=2.0,
+                        help="socket timeout in seconds (default: 2.0)")
+    args = parser.parse_args()
+
+    run_rtt_probe(args.host, args.port, protocol=args.protocol,
+                  count=args.count, timeout_sec=args.timeout)

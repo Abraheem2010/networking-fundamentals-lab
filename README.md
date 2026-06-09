@@ -37,8 +37,12 @@ python task1_rtt_client.py
 ```
 
 By default it sends 10 TCP messages to `127.0.0.1:5000` and prints each RTT
-plus the average. The protocol, message count, and timeout can be changed in
-the `run_rtt_probe(...)` call at the bottom of the file (e.g. `protocol="udp"`).
+plus the average. The protocol, host, port, message count, and timeout are all
+configurable from the command line:
+
+```bash
+python task1_rtt_client.py --protocol udp --count 20 --timeout 1.5
+```
 
 ### Task 2 — TCP AIMD congestion simulation
 
