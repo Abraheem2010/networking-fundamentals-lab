@@ -6,6 +6,9 @@ once the client disconnects.
 import socket
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Bind to the loopback address on purpose: the server is reachable only from
+# this machine, never from the local network or the internet. Using "0.0.0.0"
+# instead would expose it to every host on the network.
 server.bind(("127.0.0.1", 5000))
 server.listen(1)
 print("Server listening on port 5000...")
