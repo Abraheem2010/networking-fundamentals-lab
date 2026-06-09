@@ -27,16 +27,21 @@ def aimd_step(cwnd_mss, loss_happened):
     return new_cwnd_mss
 
 
-def simulate_aimd(rounds, loss_prob=0.2, seed=None, start_mss=1):
+def simulate_aimd(rounds, loss_prob=0.2, seed=None, start_mss=1, verbose=True):
     """
-    run 'rounds' RTTs, print cwnd each RTT
+    run 'rounds' RTTs, optionally print cwnd each RTT,
+    and return the list of cwnd values (one per round)
     """
     rng = random.Random(seed)  # Initialize random number generator with seed
     cwnd_mss = start_mss  # Start with initial congestion window size
+    history = []
     for round in range(rounds):
         loss_happened = trial_loss(loss_prob, rng)  # Determine if loss occurs
         cwnd_mss = aimd_step(cwnd_mss, loss_happened)  # Update congestion window
-        print(f"Round {round + 1}: cwnd = {cwnd_mss:.2f} MSS")  # Print current cwnd
+        history.append(cwnd_mss)
+        if verbose:
+            print(f"Round {round + 1}: cwnd = {cwnd_mss:.2f} MSS")  # Print current cwnd
+    return history
 
 
 if __name__ == "__main__":

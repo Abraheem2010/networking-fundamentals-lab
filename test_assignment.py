@@ -42,6 +42,14 @@ def test_trial_loss_bounds():
     assert t2.trial_loss(1.0, random.Random(0)) is True    # always lose
 
 
+def test_simulate_aimd_returns_reproducible_history():
+    h1 = t2.simulate_aimd(rounds=10, seed=42, verbose=False)
+    h2 = t2.simulate_aimd(rounds=10, seed=42, verbose=False)
+    assert len(h1) == 10              # one cwnd value per round
+    assert h1 == h2                   # same seed -> identical run
+    assert all(c >= 1 for c in h1)    # window never drops below 1 MSS
+
+
 # ---------- Task 3: IPv4 / CIDR ----------
 
 def test_ip_to_int_roundtrip():
