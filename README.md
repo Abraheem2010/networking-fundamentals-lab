@@ -120,7 +120,6 @@ Each experiment is backed by real packet captures under [`docs/`](docs/).
 | Calculator output for `192.168.1.89/24` | ![cidr](docs/task3_ipcalc/01_cidr_calculator_output.png) |
 | Captured packets from the local address | ![captured ip](docs/task3_ipcalc/02_wireshark_captured_ip.png) |
 | Real interface address & subnet | ![interface](docs/task3_ipcalc/03_real_interface_subnet.png) |
-| Checking the address falls inside the host range | ![in range](docs/task3_ipcalc/04_ip_in_range_analysis.png) |
 
 ## License
 
