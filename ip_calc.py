@@ -1,4 +1,4 @@
-"""Task 3 - IPv4 / CIDR subnet calculator.
+"""IPv4 / CIDR subnet calculator.
 
 Converts between dotted-decimal and integer IPv4 representations and, given a
 CIDR block, computes the network address, broadcast address, host range, and

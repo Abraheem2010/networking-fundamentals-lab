@@ -1,16 +1,17 @@
-"""Unit tests for the networking lab.
+"""Unit tests for the networking toolkit.
 
 Run with either:
-    python -m pytest test_assignment.py
-    python test_assignment.py          (built-in fallback runner, no pytest needed)
+    python -m pytest test_networking.py
+    python test_networking.py          (built-in fallback runner, no pytest needed)
 
-Covers the pure-logic tasks: Task 2 (AIMD) and Task 3 (IPv4 / CIDR).
-Task 1 is network-dependent (needs the echo server) and is exercised manually.
+Covers the pure-logic modules: the AIMD simulator and the IPv4/CIDR calculator.
+The RTT probe is network-dependent (needs the echo server) and is exercised
+manually.
 """
 import random
 
-import task2_tcp_window as t2
-import task3_ip_calc as t3
+import aimd_sim as t2
+import ip_calc as t3
 
 
 # ---------- Task 2: AIMD ----------

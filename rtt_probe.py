@@ -1,4 +1,4 @@
-"""Task 1 - Round-Trip Time (RTT) probe over TCP or UDP.
+"""Round-Trip Time (RTT) probe over TCP or UDP.
 
 Sends a series of messages to an echo server, measures the RTT of each
 message, and prints the per-message RTT together with the average.

@@ -25,13 +25,13 @@ dependencies; everything runs on the standard library.
 | File | What it does |
 | ---- | ----------- |
 | `echo_server.py` | Minimal localhost-only TCP echo server (used to exercise the RTT client). |
-| `task1_rtt_client.py` | Measures round-trip time over TCP or UDP; configurable from the command line. |
-| `task2_tcp_window.py` | Simulates TCP AIMD congestion-window growth with random packet loss. |
-| `task3_ip_calc.py` | IPv4 / CIDR calculator: network, broadcast, host range, and host count. |
+| `rtt_probe.py` | Measures round-trip time over TCP or UDP; configurable from the command line. |
+| `aimd_sim.py` | Simulates TCP AIMD congestion-window growth with random packet loss. |
+| `ip_calc.py` | IPv4 / CIDR calculator: network, broadcast, host range, and host count. |
 
 ## How to run
 
-### RTT probe over TCP/UDP — `task1_rtt_client.py`
+### RTT probe over TCP/UDP — `rtt_probe.py`
 
 Open two terminals. Start the echo server first:
 
@@ -42,7 +42,7 @@ python echo_server.py
 Then, in a second terminal, run the RTT client:
 
 ```bash
-python task1_rtt_client.py
+python rtt_probe.py
 ```
 
 By default it sends 10 TCP messages to `127.0.0.1:5000` and prints each RTT
@@ -50,13 +50,13 @@ plus the average. The protocol, host, port, message count, and timeout are all
 configurable from the command line:
 
 ```bash
-python task1_rtt_client.py --protocol udp --count 20 --timeout 1.5
+python rtt_probe.py --protocol udp --count 20 --timeout 1.5
 ```
 
-### TCP AIMD congestion simulator — `task2_tcp_window.py`
+### TCP AIMD congestion simulator — `aimd_sim.py`
 
 ```bash
-python task2_tcp_window.py
+python aimd_sim.py
 ```
 
 Simulates 50 RTT rounds with a 20% loss probability (fixed seed for
@@ -64,10 +64,10 @@ reproducibility), prints the congestion window (`cwnd`) after each round, and
 returns the `cwnd` history as a list. On loss the window is halved
 (multiplicative decrease); otherwise it grows by one MSS (additive increase).
 
-### IPv4 / CIDR calculator — `task3_ip_calc.py`
+### IPv4 / CIDR calculator — `ip_calc.py`
 
 ```bash
-python task3_ip_calc.py
+python ip_calc.py
 ```
 
 Prompts for a CIDR block and prints the subnet details. Example:
@@ -87,8 +87,8 @@ It also handles the special cases `/31` (2 usable hosts, RFC 3021) and `/32`
 ## Tests
 
 ```bash
-python -m pytest test_assignment.py    # if pytest is installed
-python test_assignment.py              # built-in fallback runner, no dependencies
+python -m pytest test_networking.py    # if pytest is installed
+python test_networking.py              # built-in fallback runner, no dependencies
 ```
 
 The same suite runs in CI on Python 3.9, 3.11, and 3.12 (see the badge above).

@@ -1,4 +1,4 @@
-"""Task 2 - TCP congestion control (AIMD) simulation.
+"""TCP congestion control (AIMD) simulation.
 
 Simulates the Additive-Increase / Multiplicative-Decrease behaviour of a TCP
 congestion window over a number of RTT rounds, with random loss events.

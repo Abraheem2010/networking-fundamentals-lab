@@ -1,4 +1,4 @@
-"""Simple TCP echo server used to test the RTT client (Task 1).
+"""Simple TCP echo server used to test the RTT client.
 
 Listens on 127.0.0.1:5000, echoes back every byte it receives, and stops
 once the client disconnects.
