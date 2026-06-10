@@ -95,7 +95,32 @@ The same suite runs in CI on Python 3.9, 3.11, and 3.12 (see the badge above).
 
 ## Packet-level verification (Wireshark)
 
-Wireshark captures documenting each experiment will be added here.
+Each experiment is backed by real packet captures and program output under [`docs/`](docs/).
+
+### RTT over the loopback echo
+
+| | |
+| --- | --- |
+| Echo server running | ![echo server](docs/task1_rtt/01_echo_server_running.png) |
+| RTT client output (per-message RTT + average) | ![rtt output](docs/task1_rtt/02_rtt_client_output.png) |
+| TCP handshake + `"Message 0"` payload (`tcp.port == 5000`) | ![handshake](docs/task1_rtt/03_wireshark_handshake.png) |
+| Per-packet **Delta time** column (verifies the measured RTT) | ![delta time](docs/task1_rtt/04_wireshark_delta_time.png) |
+
+### AIMD vs. a real TCP window
+
+| | |
+| --- | --- |
+| Simulation output (`cwnd` per round) | ![aimd](docs/task2_aimd/01_simulation_output.png) |
+| `Statistics → TCP Stream Graphs → Window Scaling` (loopback) | ![window loopback](docs/task2_aimd/02_window_scaling_loopback.png) |
+| Window scaling of a real TCP connection | ![window real](docs/task2_aimd/03_window_scaling_real_tcp.png) |
+
+### IPv4 / CIDR against a real interface
+
+| | |
+| --- | --- |
+| Calculator output for `192.168.1.0/24` | ![cidr](docs/task3_ipcalc/01_calculator_output.png) |
+| Captured packets from the local address `192.168.1.89` | ![captured ip](docs/task3_ipcalc/02_wireshark_captured_ip.png) |
+| Real interface address & subnet (`ipconfig`) | ![interface](docs/task3_ipcalc/03_interface_subnet.png) |
 
 ## License
 
